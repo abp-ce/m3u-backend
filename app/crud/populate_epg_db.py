@@ -9,9 +9,9 @@ from urllib.request import urlopen
 from sqlalchemy import insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from .constants import DATETIME_FORMAT, FILE_NAME, FILE_URL, ROWS_TO_COMMIT
+from ..constants import DATETIME_FORMAT, FILE_NAME, FILE_URL, ROWS_TO_COMMIT
 from .database import engine
-from .models import Base, Channel, Programme
+from ..models import Base, Channel, Programme
 
 logger = logging.getLogger('uvicorn')
 

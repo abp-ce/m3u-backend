@@ -10,11 +10,12 @@ Base = declarative_base()
 class M3UUser(Base):
     __tablename__ = "m3u_users"
     id = Column(Integer, Identity(always=True), primary_key=True)
-    name = Column(String(30), unique=True, nullable=False)
-    email = Column(String(50), unique=True, nullable=False)
+    username = Column(String(30), unique=True, nullable=False)
+    email = Column(String(50), unique=True, nullable=True)
     password = Column(String(80))
     creation_date = Column(DateTime(timezone=True), server_default=func.now())
-    disabled = Column(String(1), CheckConstraint("disabled in ('Y','N')"))
+    disabled = Column(String(1), CheckConstraint("disabled in ('Y','N')"),
+                      nullable=False, default="N")
 
 
 class Channel(Base):

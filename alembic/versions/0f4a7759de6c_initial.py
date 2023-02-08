@@ -1,8 +1,8 @@
 """Initial
 
-Revision ID: 6e8bc4b2a62f
+Revision ID: 0f4a7759de6c
 Revises: 
-Create Date: 2023-01-30 18:10:14.310076
+Create Date: 2023-02-06 13:44:40.574896
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '6e8bc4b2a62f'
+revision = '0f4a7759de6c'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -27,14 +27,14 @@ def upgrade() -> None:
     )
     op.create_table('m3u_users',
     sa.Column('id', sa.Integer(), sa.Identity(always=True), nullable=False),
-    sa.Column('name', sa.String(length=30), nullable=False),
-    sa.Column('email', sa.String(length=50), nullable=False),
+    sa.Column('username', sa.String(length=30), nullable=False),
+    sa.Column('email', sa.String(length=50), nullable=True),
     sa.Column('password', sa.String(length=80), nullable=True),
     sa.Column('creation_date', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
-    sa.Column('disabled', sa.String(length=1), nullable=True),
+    sa.Column('disabled', sa.String(length=1), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
-    sa.UniqueConstraint('name')
+    sa.UniqueConstraint('username')
     )
     op.create_table('programme',
     sa.Column('id', sa.Integer(), sa.Identity(always=True), nullable=False),

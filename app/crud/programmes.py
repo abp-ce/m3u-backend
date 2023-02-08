@@ -3,7 +3,7 @@ from datetime import datetime
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from . import models
+from .. import models
 
 
 async def get_categories(session: AsyncSession):
@@ -32,6 +32,18 @@ async def get_programme(session: AsyncSession, ch_id: str, tm: datetime):
         models.Programme.pstart <= tm,
         models.Programme.pstop > tm,
         models.Channel.ch_id == ch_id
+    ))
+    return result.first()
+
+
+async def get_programme_by_name(session: AsyncSession, p_name: str,
+                                tm: datetime):
+    result = await session.scalars(select(
+        models.Programme
+    ).join(models.Channel).where(
+        models.Programme.pstart <= tm,
+        models.Programme.pstop > tm,
+        models.Channel.disp_name == p_name
     ))
     return result.first()
 

@@ -3,9 +3,8 @@ from datetime import datetime, timezone
 from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.dependencies import get_session
-
-from .. import crud
+from ..crud import programmes as crud
+from ..dependencies.session import get_session
 
 router = APIRouter(
     prefix="/telebot",

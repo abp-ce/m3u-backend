@@ -1,17 +1,22 @@
-from fastapi import BackgroundTasks, Depends, FastAPI
-from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
-from app.dependencies import get_session
-from app.populate_epg_db import populate_epg_db
-from app.routers import telebot
+from app.routers import auth, telebot, web
 
 app = FastAPI()
 
+app.include_router(web.router)
+app.include_router(auth.router)
 app.include_router(telebot.router)
 
+origins = [
+    'http://localhost:8080',
+]
 
-@app.get('/refresh_epg_db')
-def refresh_epg_db(background_tasks: BackgroundTasks,
-                   session: AsyncSession = Depends(get_session)):
-    background_tasks.add_task(populate_epg_db, session)
-    return {"message": "Refreshing EPG db in the background"}
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)

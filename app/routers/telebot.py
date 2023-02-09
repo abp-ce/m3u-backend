@@ -12,7 +12,7 @@ router = APIRouter(
 )
 
 
-@router.get("/categories")
+@router.get("/categories/")
 async def get_categories(session: AsyncSession = Depends(get_session)):
     return await crud.get_categories(session)
 

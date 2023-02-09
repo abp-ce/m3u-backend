@@ -9,7 +9,7 @@ engine = create_async_engine('postgresql+asyncpg://{}:{}@{}:{}/{}'.format(
     settings.postgres_host,
     settings.postgres_port,
     settings.postgres_db
-), echo=True)
+), echo=False)
 
 async_session = sessionmaker(engine, expire_on_commit=False,
                              class_=AsyncSession)

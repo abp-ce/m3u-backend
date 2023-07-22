@@ -12,6 +12,7 @@ app.include_router(telebot.router)
 origins = [
     'http://localhost:8080',
     'https://abp-m3u.ml',
+    'https://abp-ce.github.io',
 ]
 
 app.add_middleware(
